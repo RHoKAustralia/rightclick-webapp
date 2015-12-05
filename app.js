@@ -17,6 +17,17 @@ var routes = require('./app/routes');
 
 var _ = require('lodash');
 
+var isAuthorized = function(req, res, next) {
+  console.log(req.query)
+  var key = req.query.api_key || req.get('x-api-key');
+  if(key !== "5b23868a29a8b99a4a7a04bd912c79c1550d8e66") {
+    res.status(401).json({ message: 'You need api_key in the request query or x-api-key as a header to work with this API'});
+  }
+  else {
+    next();
+  }
+}
+
 /* Database */
 var mongodb_url = process.env.MONGODB_URL || process.env.MONGOLAB_URI || 'mongodb://localhost:27017/rightclick';
 var db = require('monk')(mongodb_url);
@@ -28,13 +39,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/lessons',function(req,res){
+// Restful API
+var router = express.Router();
+router.get('/lessons', isAuthorized, function(req,res){
+  console.log(req.query)
   lessons.find({}, function (err, docs){
     console.log(err);
     res.json(docs);
   });
   //res.json({message: "Hello"})
 });
+app.use('/api', router);
 
 app.use(function(req, res) {
   Router.match({ routes: routes, location: req.url }, function(err, redirectLocation, renderProps) {
