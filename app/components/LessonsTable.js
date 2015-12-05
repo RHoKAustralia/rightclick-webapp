@@ -2,6 +2,10 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 
 class LessonsTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {lessons: []};
+  }
   render() {
     return (
       <Table striped bordered condensed hover>
