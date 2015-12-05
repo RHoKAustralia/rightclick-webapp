@@ -25,10 +25,6 @@ class LessonsTable extends React.Component {
       </Table>
     );
   }
-
-  _handleTouchTap() {
-    //this.refs.superSecretPasswordDialog.show();
-  }
 }
 
 export default LessonsTable;
