@@ -18,16 +18,23 @@ var routes = require('./app/routes');
 var _ = require('lodash');
 
 /* Database */
-var mongoose = require('mongoose');
-mongoose.connect(process.env.MONGOOSE_URL || process.env.MONGOLAB_URI || 'mongodb://localhost:27017/rightclick');
-
-var User = require('./app/models/User');
+var mongodb_url = process.env.MONGODB_URL || process.env.MONGOLAB_URI || 'mongodb://localhost:27017/rightclick';
+var db = require('monk')(mongodb_url);
+var lessons = db.get('lessons');
 
 app.set('port', process.env.PORT || 8080);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/lessons',function(req,res){
+  lessons.find({}, function (err, docs){
+    console.log(err);
+    res.json(docs);
+  });
+  //res.json({message: "Hello"})
+});
 
 app.use(function(req, res) {
   Router.match({ routes: routes, location: req.url }, function(err, redirectLocation, renderProps) {
