@@ -3,6 +3,10 @@ import { Navbar, NavBrand, Nav, NavItem } from 'react-bootstrap';
 import LessonsTable from './LessonsTable';
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {lessons: [{hello: 'world'}]};
+  }
   render() {
     return (
       <div>
@@ -14,7 +18,7 @@ class Home extends React.Component {
               <NavItem eventKey={2} href="#">Lesson History</NavItem>
             </Nav>
           </Navbar>
-          <LessonsTable/>
+          <LessonsTable lessons={this.state.lessons}/>
         </div>
       </div>
     );

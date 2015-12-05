@@ -1,12 +1,15 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
+import LessonsTableItem from './LessonsTableItem'
 
 class LessonsTable extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {lessons: []};
-  }
   render() {
+    var Lessons = (<tr><td>Loading lessons...</td></tr>);
+    if (this.props.lessons) {
+      Lessons = this.props.lessons.map(function (lesson) {
+        return (<LessonsTableItem lesson={lesson} key={lesson.id} />);
+      });
+    }
     return (
       <Table striped bordered condensed hover>
         <thead>
@@ -18,23 +21,7 @@ class LessonsTable extends React.Component {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td colSpan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
+          {Lessons}
         </tbody>
       </Table>
     );
