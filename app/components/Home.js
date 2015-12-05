@@ -1,5 +1,6 @@
 import React from 'react';
-import { Jumbotron, Button, Navbar, NavBrand, Nav, NavItem, NavDropdown, MenuItem, Grid, Row, Col, Well } from 'react-bootstrap';
+import { Navbar, NavBrand, Nav, NavItem } from 'react-bootstrap';
+import LessonsTable from './LessonsTable';
 
 class Home extends React.Component {
   render() {
@@ -13,6 +14,7 @@ class Home extends React.Component {
               <NavItem eventKey={2} href="#">Lesson History</NavItem>
             </Nav>
           </Navbar>
+          <LessonsTable/>
         </div>
       </div>
     );

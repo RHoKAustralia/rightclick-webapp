@@ -19,7 +19,7 @@ var _ = require('lodash');
 
 /* Database */
 var mongoose = require('mongoose');
-mongoose.connect(process.env.MONGOOSE_URL);
+mongoose.connect(process.env.MONGOOSE_URL || 'mongodb://localhost:27017/rightclick');
 
 var User = require('./app/models/User');
 
