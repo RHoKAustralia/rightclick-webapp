@@ -14,10 +14,9 @@ class LessonsTable extends React.Component {
       <Table striped bordered condensed hover>
         <thead>
           <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
+            <th>Lesson Name</th>
+            <th>Start Time</th>
+            <th>End Time</th>
           </tr>
         </thead>
         <tbody>
