@@ -310,6 +310,17 @@ var _Step = require('./Step');
 
 var _Step2 = _interopRequireDefault(_Step);
 
+var lessonDetailsTitle = _react2['default'].createElement(
+  'h1',
+  null,
+  'Lesson Details'
+);
+var stepsTitle = _react2['default'].createElement(
+  'h1',
+  null,
+  'Steps'
+);
+
 var LessonDetails = (function (_React$Component) {
   _inherits(LessonDetails, _React$Component);
 
@@ -336,106 +347,137 @@ var LessonDetails = (function (_React$Component) {
         'div',
         null,
         _react2['default'].createElement(
-          _reactBootstrap.Table,
-          { striped: true, bordered: true, condensed: true, hover: true },
+          _reactBootstrap.Panel,
+          { header: lessonDetailsTitle },
           _react2['default'].createElement(
-            'tbody',
-            null,
+            _reactBootstrap.Table,
+            { striped: true, bordered: true, condensed: true, hover: true },
             _react2['default'].createElement(
-              'tr',
+              'tbody',
               null,
               _react2['default'].createElement(
-                'th',
-                { width: '10%' },
-                'Lesson Title'
+                'tr',
+                null,
+                _react2['default'].createElement(
+                  'th',
+                  { width: '10%' },
+                  'Lesson Title'
+                ),
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  this.props.lesson.name || this.props.lesson.title
+                )
               ),
               _react2['default'].createElement(
-                'td',
+                'tr',
                 null,
-                this.props.lesson.name || this.props.lesson.title
-              )
-            ),
-            _react2['default'].createElement(
-              'tr',
-              null,
-              _react2['default'].createElement(
-                'th',
-                { width: '10%' },
-                'Tutor Name'
+                _react2['default'].createElement(
+                  'th',
+                  { width: '10%' },
+                  'Tutor Name'
+                ),
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  this.props.lesson.tutor_name
+                )
               ),
               _react2['default'].createElement(
-                'td',
+                'tr',
                 null,
-                this.props.lesson.tutor_name
-              )
-            ),
-            _react2['default'].createElement(
-              'tr',
-              null,
-              _react2['default'].createElement(
-                'th',
-                { width: '10%' },
-                'Tutor Email'
+                _react2['default'].createElement(
+                  'th',
+                  { width: '10%' },
+                  'Tutor Email'
+                ),
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  this.props.lesson.tutor_email
+                )
               ),
               _react2['default'].createElement(
-                'td',
+                'tr',
                 null,
-                this.props.lesson.tutor_email
-              )
-            ),
-            _react2['default'].createElement(
-              'tr',
-              null,
-              _react2['default'].createElement(
-                'th',
-                { width: '10%' },
-                'Student Name'
+                _react2['default'].createElement(
+                  'th',
+                  { width: '10%' },
+                  'Student Name'
+                ),
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  this.props.lesson.student_name
+                )
               ),
               _react2['default'].createElement(
-                'td',
+                'tr',
                 null,
-                this.props.lesson.student_name
-              )
-            ),
-            _react2['default'].createElement(
-              'tr',
-              null,
-              _react2['default'].createElement(
-                'th',
-                { width: '10%' },
-                'Student Email'
+                _react2['default'].createElement(
+                  'th',
+                  { width: '10%' },
+                  'Student Email'
+                ),
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  this.props.lesson.student_email
+                )
               ),
               _react2['default'].createElement(
-                'td',
+                'tr',
                 null,
-                this.props.lesson.student_email
-              )
-            ),
-            _react2['default'].createElement(
-              'tr',
-              null,
-              _react2['default'].createElement(
-                'th',
-                { width: '10%' },
-                'Device'
+                _react2['default'].createElement(
+                  'th',
+                  { width: '10%' },
+                  'Started At'
+                ),
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  this.props.lesson.start_time
+                )
               ),
               _react2['default'].createElement(
-                'td',
+                'tr',
                 null,
-                this.props.lesson.device
+                _react2['default'].createElement(
+                  'th',
+                  { width: '10%' },
+                  'Ended At'
+                ),
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  this.props.lesson.end_time
+                )
+              ),
+              _react2['default'].createElement(
+                'tr',
+                null,
+                _react2['default'].createElement(
+                  'th',
+                  { width: '10%' },
+                  'Device'
+                ),
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  this.props.lesson.device
+                )
               )
             )
           )
         ),
         _react2['default'].createElement(
-          'h1',
-          null,
-          'Steps'
-        ),
-        _react2['default'].createElement(
-          _reactBootstrap.Grid,
-          null,
-          Steps
+          _reactBootstrap.Panel,
+          { header: stepsTitle },
+          _react2['default'].createElement(
+            _reactBootstrap.Grid,
+            null,
+            Steps
+          )
         )
       );
     }
