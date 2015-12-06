@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, Grid } from 'react-bootstrap';
 import Step from './Step';
 
 class LessonDetails extends React.Component {
@@ -11,50 +11,22 @@ class LessonDetails extends React.Component {
       });
     }
     return (
-      <dl>
-        <dt>
-          Lesson name
-        </dt>
-        <dd>
-          {this.props.lesson.name}
-        </dd>
-        <dt>
-          Tutor name
-        </dt>
-        <dd>
-          {this.props.lesson.tutor_name}
-        </dd>
-        <dt>
-          Tutor email
-        </dt>
-        <dd>
-          {this.props.lesson.tutor_email}
-        </dd>
-        <dt>
-          Student name
-        </dt>
-        <dd>
-          {this.props.lesson.student_name}
-        </dd>
-        <dt>
-          Student email
-        </dt>
-        <dd>
-          {this.props.lesson.student_email}
-        </dd>
-        <dt>
-          Device/name
-        </dt>
-        <dd>
-          {this.props.lesson.device}
-        </dd>
-        <dt>
-          Steps
-        </dt>
-        <dd>
-          {Steps}
-        </dd>
-      </dl>
+      <div>
+      <Table striped bordered condensed hover>
+        <tbody>
+          <tr><th width="10%">Lesson Title</th><td>{this.props.lesson.name || this.props.lesson.title}</td></tr>
+          <tr><th width="10%">Tutor Name</th><td>{this.props.lesson.tutor_name}</td></tr>
+          <tr><th width="10%">Tutor Email</th><td>{this.props.lesson.tutor_email}</td></tr>
+          <tr><th width="10%">Student Name</th><td>{this.props.lesson.student_name}</td></tr>
+          <tr><th width="10%">Student Email</th><td>{this.props.lesson.student_email}</td></tr>
+          <tr><th width="10%">Device</th><td>{this.props.lesson.device}</td></tr>
+        </tbody>
+      </Table>
+      <h1>Steps</h1>
+      <Grid>
+      {Steps}
+      </Grid>
+      </div>
     );
   }
 }
