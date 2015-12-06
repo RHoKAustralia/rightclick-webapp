@@ -45,7 +45,7 @@ app.options('*', cors());
 var router = express.Router();
 router.get('/lessons', isAuthorized, function(req,res){
   console.log(req.query)
-  lessons.find({}, function (err, docs){
+  lessons.find({}, '-steps', function (err, docs){
     console.log(err);
     res.json(docs);
   });
