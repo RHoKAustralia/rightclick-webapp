@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import { Table, Grid, Row, Col } from 'react-bootstrap';
+import ChartRow from './ChartRow';
 
 class RecentActivity extends React.Component {
   render() {
@@ -27,21 +28,12 @@ class RecentActivity extends React.Component {
     }
     
     // Generate rows for each day
-    var Bars = [];
+    var Rows = [];
     for (var day in dayActivities) {
-      var style = {height: '10px', 
-              backgroundColor: '#69c', 
-              width: (dayActivities[day] / maxCount * 100) + '%'};
       var row = (
-        <tr>
-          <td>{day}</td>
-          <td>
-            <div style={style}>
-            </div>
-          </td>
-        </tr>
+        <ChartRow name={day} max={maxCount} value={dayActivities[day]} />
       );
-      Bars.push(row);
+      Rows.push(row);
     }
 
     return (
@@ -52,10 +44,11 @@ class RecentActivity extends React.Component {
               <tr>
                 <td>Day</td>
                 <td>Lessons held</td>
+                <td>Count</td>
               </tr>
             </thead>
             <tbody>
-              {Bars}
+              {Rows}
             </tbody>
           </Table>
         </div>
