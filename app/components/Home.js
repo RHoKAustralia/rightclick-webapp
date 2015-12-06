@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import LessonsTable from './LessonsTable';
+import { Grid, Row, Col } from 'react-bootstrap';
 
 class Home extends React.Component {
   constructor(props) {
@@ -257,7 +258,11 @@ class Home extends React.Component {
     return (
       <div>
         <Header/>
-        <LessonsTable lessons={this.state.lessons}/>
+        <Grid>
+          <Row className="show-grid">
+            <LessonsTable lessons={this.state.lessons}/>
+          </Row>
+        </Grid>
       </div>
     );
   }
