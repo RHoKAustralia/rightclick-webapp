@@ -6,7 +6,7 @@ class NoteStep extends React.Component {
     return (
       <div className="step">
         <Row>
-        <Col md={1}>{this.props.step.sequence_no}</Col>
+        <Col md={1}>Step {this.props.step.sequence_no}</Col>
         <Col md={10}>{this.props.step.data}</Col>
         </Row>
       </div>

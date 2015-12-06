@@ -654,6 +654,7 @@ var NoteStep = (function (_React$Component) {
           _react2['default'].createElement(
             _reactBootstrap.Col,
             { md: 1 },
+            'Step ',
             this.props.step.sequence_no
           ),
           _react2['default'].createElement(
@@ -717,12 +718,13 @@ var PhotoStep = (function (_React$Component) {
           _react2['default'].createElement(
             _reactBootstrap.Col,
             { md: 1 },
+            'Step ',
             this.props.step.sequence_no
           ),
           _react2['default'].createElement(
             _reactBootstrap.Col,
             { md: 10 },
-            _react2['default'].createElement('img', { src: imgData, width: '640px', height: '480px' })
+            _react2['default'].createElement(_reactBootstrap.Thumbnail, { src: imgData, width: '640px', height: '480px' })
           )
         )
       );

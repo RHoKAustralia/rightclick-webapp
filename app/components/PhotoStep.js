@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Thumbnail } from 'react-bootstrap';
 
 class PhotoStep extends React.Component {
   render() {
@@ -7,9 +7,9 @@ class PhotoStep extends React.Component {
     return (
       <div className="step">
         <Row>
-        <Col md={1}>{this.props.step.sequence_no}</Col>
+        <Col md={1}>Step {this.props.step.sequence_no}</Col>
         <Col md={10}>
-          <img src={imgData} width="640px" height="480px"/>
+          <Thumbnail src={imgData} width="640px" height="480px"/>
         </Col>
         </Row>
       </div>
