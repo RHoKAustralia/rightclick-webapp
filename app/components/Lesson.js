@@ -1,11 +1,11 @@
 import React from 'react';
-import { Navbar, NavBrand, Nav, NavItem } from 'react-bootstrap';
-import LessonDetails from './LessonDetails'
+import Header from './Header';
+import LessonDetails from './LessonDetails';
 
 class Lesson extends React.Component {
   render() {
     // TODO: Replace mock object with actual lesson data
-    // var lessonID = this.props.param.id 
+    // var lessonID = this.props.param.id
     var lesson = {
         "id": 0,
         "tutor_name": "esse deserunt",
@@ -36,16 +36,8 @@ class Lesson extends React.Component {
     };
     return (
       <div>
-        <div className="header">
-          <Navbar className="navbar-static-top">
-            <NavBrand><a href="/"></a>RightClick Admin</NavBrand>
-            <Nav>
-              <NavItem eventKey={1} href="/dashboard">Dashboard</NavItem>
-              <NavItem eventKey={2} href="/">Lesson History</NavItem>
-            </Nav>
-          </Navbar>
-          <LessonDetails lesson={lesson} />
-        </div>
+        <Header/>
+        <LessonDetails lesson={lesson} />
       </div>
     );
   }
