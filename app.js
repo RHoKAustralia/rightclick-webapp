@@ -51,7 +51,7 @@ router.get('/lessons', isAuthorized, function(req,res){
 });
 router.post('/lessons', isAuthorized, function(req,res){
   if(req.body) {
-    console.log(req.body)
+    //console.log(req.body)
     lessons.insert(req.body, function (err, doc) {
       if (err) {
         res.status(500).json({ message: err })
