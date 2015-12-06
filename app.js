@@ -49,6 +49,19 @@ router.get('/lessons', isAuthorized, function(req,res){
   });
   //res.json({message: "Hello"})
 });
+router.post('/lessons', isAuthorized, function(req,res){
+  if(req.body) {
+    console.log(req.body)
+    lessons.insert(req.body, function (err, doc) {
+      if (err) {
+        res.status(500).json({ message: err })
+      } else {
+        res.status(200).json(doc)
+      }
+    });
+  }
+  //res.json({message: "Hello"})
+});
 app.use('/api', router);
 
 app.use(function(req, res) {
