@@ -35,8 +35,8 @@ var lessons = db.get('lessons');
 
 app.set('port', process.env.PORT || 8080);
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Restful API
