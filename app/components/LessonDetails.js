@@ -4,9 +4,12 @@ import Step from './Step';
 
 class LessonDetails extends React.Component {
   render() {
-    var Steps = this.props.lesson.steps.map(function(step) {
-      return (<Step step={step} key={step.sequence_no} />);
-    });
+    var Steps = (<p>Loading steps...</p>);
+    if (this.props.lesson.steps) {
+      Steps = this.props.lesson.steps.map(function(step) {
+        return (<Step step={step} key={step.sequence_no} />);
+      });
+    }
     return (
       <dl>
         <dt>
@@ -37,7 +40,7 @@ class LessonDetails extends React.Component {
           Student email
         </dt>
         <dd>
-          {this.props.lesson.student_email.length > 0 ? this.props.lesson.student_email : "N/A"}
+          {this.props.lesson.student_email}
         </dd>
         <dt>
           Device/name

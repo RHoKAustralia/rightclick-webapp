@@ -1,4 +1,5 @@
 var express = require('express');
+var cors = require('cors');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -28,9 +29,7 @@ var isAuthorized = function(req, res, next) {
   }
 }
 
-/* Database */
-var mongodb_url = process.env.MONGODB_URL || process.env.MONGOLAB_URI || 'mongodb://localhost:27017/rightclick';
-var db = require('monk')(mongodb_url);
+import db from './app/db'
 var lessons = db.get('lessons');
 
 app.set('port', process.env.PORT || 8080);
@@ -39,13 +38,23 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(cors());
+app.options('*', cors());
+
 // Restful API
 var router = express.Router();
 router.get('/lessons', isAuthorized, function(req,res){
   console.log(req.query)
-  lessons.find({}, function (err, docs){
+  lessons.find({}, '-steps', function (err, docs){
     console.log(err);
     res.json(docs);
+  });
+  //res.json({message: "Hello"})
+});
+router.get('/lessons/:id', isAuthorized, function(req,res){
+  lessons.findById(req.params['id'], function(err, doc){
+    if(err) console.error(err);
+    res.json(doc);
   });
   //res.json({message: "Hello"})
 });
