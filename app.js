@@ -51,6 +51,13 @@ router.get('/lessons', isAuthorized, function(req,res){
   });
   //res.json({message: "Hello"})
 });
+router.get('/lessons/:id', isAuthorized, function(req,res){
+  lessons.findById(req.params['id'], function(err, doc){
+    if(err) console.error(err);
+    res.json(doc);
+  });
+  //res.json({message: "Hello"})
+});
 router.post('/lessons', isAuthorized, function(req,res){
   if(req.body) {
     //console.log(req.body)
