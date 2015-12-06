@@ -6,7 +6,7 @@ class LessonsTableItem extends React.Component {
   render() {
     return (
         <tr>
-          <td><Link to={ "/lesson/" + this.props.lesson.id }>{ this.props.lesson.name }</Link></td>
+          <td><Link to={ "/lesson/" + this.props.lesson._id }>{ this.props.lesson.title }</Link></td>
           <td>{this.props.lesson.start_time}</td>
           <td>{this.props.lesson.end_time}</td>
         </tr>

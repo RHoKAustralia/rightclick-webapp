@@ -229,44 +229,37 @@ var _LessonDetails2 = _interopRequireDefault(_LessonDetails);
 
 var _reactBootstrap = require('react-bootstrap');
 
+var _superagent = require('superagent');
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
 var Lesson = (function (_React$Component) {
   _inherits(Lesson, _React$Component);
 
-  function Lesson() {
+  function Lesson(props) {
     _classCallCheck(this, Lesson);
 
-    _get(Object.getPrototypeOf(Lesson.prototype), 'constructor', this).apply(this, arguments);
+    _get(Object.getPrototypeOf(Lesson.prototype), 'constructor', this).call(this, props);
+    this.state = { lesson: {} };
   }
 
   _createClass(Lesson, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var that = this;
+      var id = this.props.params.id;
+
+      _superagent2['default'].get('http://rightclick.herokuapp.com/api/lessons/' + id).set('Accept', 'application/json').set('x-api-key', '5b23868a29a8b99a4a7a04bd912c79c1550d8e66').end(function (err, response) {
+        if (err) return console.error(err);
+        console.log(response.body);
+        that.setState({ lesson: response.body || {} });
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       // TODO: Replace mock object with actual lesson data
       // var lessonID = this.props.param.id
-      var lesson = {
-        "id": 0,
-        "tutor_name": "esse deserunt",
-        "tutor_email": "mail@example.com",
-        "student_name": "elit tempor",
-        "student_email": "",
-        "start_time": "2014-12-06T08:07:06 -11:00",
-        "end_time": "2014-07-03T03:37:19 -10:00",
-        "name": "laborum esse deserunt tempor elit",
-        "device": "lorem",
-        "steps": [{
-          "type": "text",
-          "data": "dolor dolore et enim commodo enim mollit sunt enim cillum officia laboris aliquip ipsum officia culpa eu culpa esse cupidatat",
-          "sequence_no": 0
-        }, {
-          "type": "photo",
-          "data": "velit nostrud qui eiusmod aute est et occaecat qui reprehenderit nisi minim nisi velit tempor eiusmod aute velit ut esse",
-          "sequence_no": 1
-        }, {
-          "type": "text",
-          "data": "est reprehenderit sint elit voluptate voluptate aliquip ex ut anim commodo eu pariatur consectetur excepteur fugiat eu culpa ad proident",
-          "sequence_no": 2
-        }]
-      };
       return _react2['default'].createElement(
         'div',
         null,
@@ -277,7 +270,7 @@ var Lesson = (function (_React$Component) {
           _react2['default'].createElement(
             _reactBootstrap.Row,
             { className: 'show-grid' },
-            _react2['default'].createElement(_LessonDetails2['default'], { lesson: lesson })
+            _react2['default'].createElement(_LessonDetails2['default'], { lesson: this.state.lesson })
           )
         )
       );
@@ -290,7 +283,7 @@ var Lesson = (function (_React$Component) {
 exports['default'] = Lesson;
 module.exports = exports['default'];
 
-},{"./Header":2,"./LessonDetails":5,"react":"react","react-bootstrap":234}],5:[function(require,module,exports){
+},{"./Header":2,"./LessonDetails":5,"react":"react","react-bootstrap":234,"superagent":285}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -329,9 +322,16 @@ var LessonDetails = (function (_React$Component) {
   _createClass(LessonDetails, [{
     key: 'render',
     value: function render() {
-      var Steps = this.props.lesson.steps.map(function (step) {
-        return _react2['default'].createElement(_Step2['default'], { step: step, key: step.sequence_no });
-      });
+      var Steps = _react2['default'].createElement(
+        'p',
+        null,
+        'Loading steps...'
+      );
+      if (this.props.lesson.steps) {
+        Steps = this.props.lesson.steps.map(function (step) {
+          return _react2['default'].createElement(_Step2['default'], { step: step, key: step.sequence_no });
+        });
+      }
       return _react2['default'].createElement(
         'dl',
         null,
@@ -383,7 +383,7 @@ var LessonDetails = (function (_React$Component) {
         _react2['default'].createElement(
           'dd',
           null,
-          this.props.lesson.student_email.length > 0 ? this.props.lesson.student_email : "N/A"
+          this.props.lesson.student_email
         ),
         _react2['default'].createElement(
           'dt',
@@ -554,8 +554,8 @@ var LessonsTableItem = (function (_React$Component) {
           null,
           _react2['default'].createElement(
             _reactRouter.Link,
-            { to: "/lesson/" + this.props.lesson.id },
-            this.props.lesson.name
+            { to: "/lesson/" + this.props.lesson._id },
+            this.props.lesson.title
           )
         ),
         _react2['default'].createElement(
