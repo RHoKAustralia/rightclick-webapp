@@ -8,21 +8,26 @@ class RecentActivity extends React.Component {
     // Calculate statistics for each day
     var dayActivities = {};
     var maxCount = 0;
+    var total = 0;
     for (var i = 0; i < this.props.data.length; i++) {
       var lesson = this.props.data[i];
-      var lessonDate = new Date(lesson.start_time.substring(0, lesson.start_time.indexOf(' ')));
-      
-      var dayDiff = Math.round(Math.abs(new Date().getTime() - lessonDate.getTime())) / (24 * 60 * 60 * 1000);
-      if (dayDiff < this.props.limit) {
-        var key = lessonDate.toDateString();
-        if (typeof dayActivities[key] === 'undefined') {
-          dayActivities[key] = 1;
-        }
-        else {
-          dayActivities[key]++;
-        }
-        if (dayActivities[key] > maxCount) {
-          maxCount = dayActivities[key];
+      if (lesson.start_time) {
+        // Include lesson in count if lesson held recently (defined by limit)
+        var lessonDate = new Date(lesson.start_time.substring(0, lesson.start_time.indexOf(' ')));
+        var dayDiff = Math.round(Math.abs(new Date().getTime() - lessonDate.getTime())) / (24 * 60 * 60 * 1000);
+        if (dayDiff < this.props.limit) {
+          var key = lessonDate.toDateString();
+          if (typeof dayActivities[key] === 'undefined') {
+            dayActivities[key] = 1;
+          }
+          else {
+            dayActivities[key]++;
+          }
+          // Update max recorded value 
+          if (dayActivities[key] > maxCount) {
+            maxCount = dayActivities[key];
+          }
+          total++;
         }
       }
     }
@@ -39,16 +44,20 @@ class RecentActivity extends React.Component {
     return (
         <div>
           <h1>Activity in the last {this.props.limit} days</h1>
-          <Table className="chart">
+          <Table striped bordered condensed hover className="chart">
             <thead>
               <tr>
-                <td>Day</td>
-                <td>Lessons held</td>
-                <td>Count</td>
+                <th>Day</th>
+                <th>Lessons held</th>
+                <th>Count</th>
               </tr>
             </thead>
             <tbody>
               {Rows}
+              <tr>
+                <td colSpan="2">Lessons held</td>
+                <td>{total}</td>
+              </tr>
             </tbody>
           </Table>
         </div>
