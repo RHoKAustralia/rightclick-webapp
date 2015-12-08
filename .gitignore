@@ -1,3 +1,15 @@
+# Packages / Dependencies
 node_modules/
 bower_components/
+
+# Bundles
+public/js/bundle.js
+public/js/vendor.bundle.js
+
+# VS Code config files
+jsconfig.json
+
+# OS-specific files
 Thumbs.db
+
+
