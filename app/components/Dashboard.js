@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import { Grid, Row, Col } from 'react-bootstrap';
 import RecentActivity from './RecentActivity';
+import LessonDuration from './LessonDuration';
 import request from 'superagent';
 
 class Dashboard extends React.Component {
@@ -27,6 +28,7 @@ class Dashboard extends React.Component {
         <Grid>
           <Row className="show-grid">
             <RecentActivity data={this.state.lessons} limit="30" />
+            <LessonDuration data={this.state.lessons} />
           </Row>
         </Grid>
       </div>
