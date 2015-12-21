@@ -3,12 +3,18 @@ import Header from './Header';
 import { Grid, Row, Col } from 'react-bootstrap';
 import RecentActivity from './RecentActivity';
 import LessonDuration from './LessonDuration';
+import LessonStepsChart from './LessonStepsChart';
 import request from 'superagent';
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {lessons:[]};
+    this.state = { 
+        lessons:[],
+        lessonDetails: [],
+        summaryLoaded: false,
+        detailsLoaded: false
+    };
   }
   componentDidMount() {
     var self = this;
@@ -17,10 +23,36 @@ class Dashboard extends React.Component {
     .set('x-api-key', '5b23868a29a8b99a4a7a04bd912c79c1550d8e66')
     .end(function(err, response) {
       if (err) return console.error(err);
-      console.log(response.body);
-      self.setState({lessons: response.body });
+      self.setState({ 
+        lessons: response.body,
+        summaryLoaded: true, 
+      });
+      // Fetch extended details for each lesson
+      var lessonDetails = [];
+      var callbacks = [];
+      for (var i = 0; i < self.state.lessons.length; i++) {
+        var lesson = self.state.lessons[i];
+        callbacks.push($.ajax({
+          url: 'http://rightclick.herokuapp.com/api/lessons/' + lesson._id,
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader('Accept', 'application/json');
+            xhr.setRequestHeader('x-api-key', '5b23868a29a8b99a4a7a04bd912c79c1550d8e66');
+          },
+          success: function(response) {
+            lessonDetails.push(response);
+          }
+        }));
+      }
+      
+      $.when.apply($, callbacks).done(function() {
+        self.setState({
+          lessonDetails: lessonDetails,
+          detailsLoaded: true
+        });
+      })
     });
   }
+  
   render() {
     return (
       <div>
@@ -29,6 +61,7 @@ class Dashboard extends React.Component {
           <Row className="show-grid">
             <RecentActivity data={this.state.lessons} limit="30" />
             <LessonDuration data={this.state.lessons} />
+            <LessonStepsChart data={this.state.lessonDetails} />
           </Row>
         </Grid>
       </div>
