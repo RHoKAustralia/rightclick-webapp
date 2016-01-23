@@ -16,10 +16,26 @@ class LessonsTable extends React.Component {
     this.loadPageContents = this.loadPageContents.bind(this);
   }
 
-  // Update page when lessons data in this.props is loaded
+  // Update page when props change
   componentWillReceiveProps(nextProps) {
     if (nextProps.lessons) {
       var lessons = nextProps.lessons.map(function (lesson) {
+        // Filter lessons against given filters
+        if (!(typeof lesson.title !== 'undefined' 
+            && lesson.title.toLowerCase().includes(nextProps.filters.title.toLowerCase()))) {
+            return;
+        }
+        if (!(nextProps.filters.start_date.length == 0  
+            || (typeof lesson.start_time !== 'undefined' 
+            && new Date(lesson.start_time) >= new Date(nextProps.filters.start_date)))) {
+            return;
+        }
+        if (!(nextProps.filters.end_date.length == 0 
+            || (typeof lesson.end_time !== 'undefined' 
+            && new Date(lesson.end_time) <= new Date(nextProps.filters.end_date)))) {
+            return;
+        }
+
         return (<LessonsTableItem lesson={lesson} key={lesson.id} />);
       });
 
