@@ -59,7 +59,7 @@ class Dashboard extends React.Component {
         <Header/>
         <Grid>
           <Row className="show-grid">
-            <RecentActivity data={this.state.lessons} limit="30" />
+            <RecentActivity data={this.state.lessons} />
             <LessonDuration data={this.state.lessons} />
             <LessonStepsChart data={this.state.lessonDetails} />
           </Row>
