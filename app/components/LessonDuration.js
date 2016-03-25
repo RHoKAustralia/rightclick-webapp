@@ -1,46 +1,41 @@
 import React from 'react';
 import Header from './Header';
 import { Table, Grid, Row, Col } from 'react-bootstrap';
-var PieChart = require("react-chartjs").Pie;
+import d3 from 'd3';
 
 class LessonDuration extends React.Component {
-  render() {
-    // Chart configuration
-    var options = {
-      responsive: true
-    };
+  shouldComponentUpdate(nextProps, nextState) {
+    var svg = d3.select('#lesson-duration svg');
+    var svgWidth = 600;
+    var svgHeight = 300;
+    
+    svg.attr('width', svgWidth)
+      .attr('height', svgHeight);
+
     // TODO: Generate labels and intervals dynamically
     var setIncrement = 10;
     var data = [
       {
-          value: 0,
-          color: "#F7464A",
-          highlight: "#FF5A5E",
-          label: "< 10 minutes"
+          label: "< 10 minutes",
+          value: 0
       },
       {
-          value: 0,
-          color: "#46BFBD",
-          highlight: "#5AD3D1",
-          label: "10 - 20 minutes"
+          label: "10 - 20 minutes",
+          value: 0
       },
       {
-          value: 0,
-          color: "#FDB45C",
-          highlight: "#FFC870",
-          label: "20 - 30 minutes"
+          label: "20 - 30 minutes",
+          value: 0
       },
       {
-          value: 0,
-          color: "#6699CC",
-          highlight: "#99CCFF",
-          label: "> 30 minutes"
+          label: "> 30 minutes",
+          value: 0
       }
     ];
     
     // Generate dataset
-    for (var i = 0; i < this.props.data.length; i++) {
-      var lesson = this.props.data[i];
+    for (var i = 0; i < nextProps.data.length; i++) {
+      var lesson = nextProps.data[i];
       // Calculate time taken in lesson
       var startTime = Date.parse(lesson.start_time);
       var endTime = Date.parse(lesson.end_time);
@@ -55,10 +50,47 @@ class LessonDuration extends React.Component {
       }
     }
 
+    // Update chart
+    var pie = d3.layout.pie().value(function(d) { return d.value; });
+    var slices = pie(data);
+    
+    var arc = d3.svg.arc().innerRadius(0).outerRadius(150);
+    var color = d3.scale.category10();
+    
+    var g = svg.append('g')
+      .attr('transform', `translate(${svgWidth / 2}, ${svgHeight / 2})`);
+    
+    // Create pie segments  
+    g.selectAll('path.slice')
+      .data(slices)
+        .enter()
+          .append('path')
+            .attr('class', 'slice')
+            .attr('d', arc)
+            .attr('fill', function(d) {
+              return color(d.data.label);
+            });
+            
+    // Create legend
+    svg.append('g')
+      .attr('class', 'legend')
+        .selectAll('text')
+        .data(slices)
+          .enter()
+            .append('text')
+              .text(function(d) { return '* ' + d.data.label })
+              .attr('fill', function(d) { return color(d.data.label); })
+              .attr('y', function(d, i) { return 20 * (i + 1); });
+    
+    // Prevent render method from being called again
+    return false;
+  }
+  
+  render() {
     return (
-      <div>
+      <div id='lesson-duration'>
         <h1>Lesson duration</h1>
-        <PieChart data={data} options={options} redraw />
+        <svg></svg>
       </div>
     );
   }
