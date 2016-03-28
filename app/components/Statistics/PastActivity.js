@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Header from './Header';
 import { Table, Grid, Row, Col } from 'react-bootstrap';
 import d3 from 'd3';
 
-class RecentActivity extends React.Component {
+class PastActivity extends React.Component {
   constructor(props) {
     super(props);
     this.state = { limit: 100 };
@@ -35,7 +34,7 @@ class RecentActivity extends React.Component {
     var padding = 20;
     var barPadding = 1;
     var barWidth = svgWidth / limit - barPadding;
-    var svg = d3.select('#recent-activity svg');
+    var svg = d3.select('#activity-stats svg');
     svg.attr('width', svgWidth)
       .attr('height', svgHeight);
     
@@ -103,7 +102,7 @@ class RecentActivity extends React.Component {
   
   render() {
     return (
-        <div id="recent-activity">
+        <div id="activity-stats">
           <h1>Activity in the last {this.state.limit} days</h1>
           <svg></svg>
         </div>
@@ -111,4 +110,4 @@ class RecentActivity extends React.Component {
   }
 }
 
-export default RecentActivity;
+export default PastActivity;

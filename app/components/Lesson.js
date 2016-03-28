@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './Header';
-import LessonDetails from './LessonDetails';
+import LessonDetails from './Lesson/LessonDetails';
 import { Grid, Row, Col } from 'react-bootstrap';
 import request from 'superagent';
 

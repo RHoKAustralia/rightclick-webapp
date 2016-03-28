@@ -1,9 +1,8 @@
 import React from 'react';
-import Header from './Header';
 import { Table, Grid, Row, Col } from 'react-bootstrap';
 import d3 from 'd3';
 
-class LessonStepsChart extends React.Component {
+class LessonSteps extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     var svgWidth = 600;
     var svgHeight = 300;
@@ -82,4 +81,4 @@ class LessonStepsChart extends React.Component {
   }
 }
 
-export default LessonStepsChart;
+export default LessonSteps;

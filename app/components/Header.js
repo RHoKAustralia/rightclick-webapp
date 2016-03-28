@@ -8,7 +8,7 @@ class Header extends React.Component {
         <Navbar className="navbar-static-top">
           <NavBrand><a href="/"></a>RightClick Admin</NavBrand>
           <Nav>
-            <NavItem eventKey={1} href="/dashboard">Dashboard</NavItem>
+            <NavItem eventKey={1} href="/statistics">Statistics</NavItem>
             <NavItem eventKey={2} href="/">Lesson History</NavItem>
           </Nav>
         </Navbar>

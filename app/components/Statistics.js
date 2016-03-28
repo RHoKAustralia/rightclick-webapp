@@ -1,13 +1,13 @@
 import React from 'react';
 import Header from './Header';
 import { Grid, Row, Col } from 'react-bootstrap';
-import RecentActivity from './RecentActivity';
-import LessonDuration from './LessonDuration';
-import LessonStepsChart from './LessonStepsChart';
-import DeviceUsage from './DeviceUsage';
+import PastActivity from './Statistics/PastActivity';
+import LessonDuration from './Statistics/LessonDuration';
+import LessonSteps from './Statistics/LessonSteps';
+import DeviceUsage from './Statistics/DeviceUsage';
 import request from 'superagent';
 
-class Dashboard extends React.Component {
+class Statistics extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
@@ -60,9 +60,9 @@ class Dashboard extends React.Component {
         <Header/>
         <Grid>
           <Row className="show-grid">
-            <RecentActivity data={this.state.lessons} />
+            <PastActivity data={this.state.lessons} />
             <LessonDuration data={this.state.lessons} />
-            <LessonStepsChart data={this.state.lessonDetails} />
+            <LessonSteps data={this.state.lessonDetails} />
             <DeviceUsage data={this.state.lessonDetails} />
           </Row>
         </Grid>
@@ -71,4 +71,4 @@ class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard;
+export default Statistics;

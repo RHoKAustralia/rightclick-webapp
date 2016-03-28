@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Header';
-import LessonsTable from './LessonsTable';
-import SearchForm from './SearchForm';
+import LessonsTable from './Home/LessonsTable';
+import SearchForm from './Home/SearchForm';
 import { Grid, Row, Col } from 'react-bootstrap';
 import request from 'superagent';
 

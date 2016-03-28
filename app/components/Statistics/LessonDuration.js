@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from './Header';
 import { Table, Grid, Row, Col } from 'react-bootstrap';
 import d3 from 'd3';
 
