@@ -4,6 +4,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import RecentActivity from './RecentActivity';
 import LessonDuration from './LessonDuration';
 import LessonStepsChart from './LessonStepsChart';
+import DeviceUsage from './DeviceUsage';
 import request from 'superagent';
 
 class Dashboard extends React.Component {
@@ -62,6 +63,7 @@ class Dashboard extends React.Component {
             <RecentActivity data={this.state.lessons} />
             <LessonDuration data={this.state.lessons} />
             <LessonStepsChart data={this.state.lessonDetails} />
+            <DeviceUsage data={this.state.lessonDetails} />
           </Row>
         </Grid>
       </div>
