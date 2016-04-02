@@ -30,7 +30,8 @@ class PastActivity extends React.Component {
     return (
         <div>
           <h1>Past Activity</h1>
-          <PastActivityChart data={this.props.data} />
+          <PastActivityChart filters={this.state.filters} 
+            data={this.props.data} />
           <PastActivityOptions filters={this.state.filters} 
             onChange={this.updateFilters} />
         </div>

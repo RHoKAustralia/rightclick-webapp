@@ -2,39 +2,59 @@ import React from 'react';
 import d3 from 'd3';
 
 class PastActivityChart extends React.Component {
+  componentDidMount() {
+    var svg = d3.select('#past-activity-chart');
+    svg.attr('width', 600)
+      .attr('height', 300);
+  }
+  
   shouldComponentUpdate(nextProps, nextState) {
-    // Construct dataset
-    var limit = 300;
-    var currentDate = new Date();
-    var minDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - limit);
+    // Get end-points of dataset
+    var startDate = nextProps.filters.start_date 
+      ? Date.parse(nextProps.filters.start_date) 
+      : d3.min(nextProps.data, function(d) { 
+        return Date.parse(d.start_time);
+      }
+    );
+    
+    var endDate = nextProps.filters.end_date 
+      ? Date.parse(nextProps.filters.end_date) 
+      : d3.max(nextProps.data, function(d) {
+        return Date.parse(d.start_time);
+      }
+    );
+    
+    var timespan = Math.floor((endDate - startDate) / (24 * 60 * 60 * 1000));
+    
     var lessons = nextProps.data.filter(function(lesson) {
       if (!lesson.start_time) {
         return false;
       }
       var lessonTime = Date.parse(lesson.start_time);
-      var dayDiff = Math.round(
-        Math.abs(currentDate.getTime() - lessonTime) / (24 * 60 * 60 * 1000)
-      );
-      return dayDiff < limit;
+      
+      return lessonTime >= startDate && lessonTime <= endDate;
     });
+    
+    // Group lessons by date
     var lessonsByDate = d3.nest()
       .key(function(d) { return d3.time.day(new Date(d.start_time)) })
       .entries(lessons);
-    
-    // D3 configuration
-    var svgWidth = 600;
-    var svgHeight = 300;
+      
+    // Configure svg
+    var svg = d3.select('#past-activity-chart');
+    var svgWidth = svg.attr('width');
+    var svgHeight = svg.attr('height');
     var padding = 20;
     var barPadding = 1;
-    var barWidth = svgWidth / limit - barPadding;
-    var svg = d3.select('#past-activity-chart');
-    svg.attr('width', svgWidth)
-      .attr('height', svgHeight);
+    var barWidth = svgWidth / timespan - barPadding;
     
+    // Delete existing svg elements
+    svg.selectAll('*').remove();
+    
+    // Configure scales
     var xScale = d3.time.scale()
       .domain([
-        minDate.getTime(),
-        currentDate.getTime()
+        startDate, endDate
       ])
       .range([padding, svgWidth - padding]);
     var yScale = d3.scale.linear()
