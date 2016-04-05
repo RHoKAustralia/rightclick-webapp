@@ -1,9 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Table, Grid, Row, Col } from 'react-bootstrap';
 import PastActivityChart from './PastActivityChart';
 import PastActivityOptions from './PastActivityOptions';
-import d3 from 'd3';
 
 class PastActivity extends React.Component {
   constructor(props) {
@@ -28,7 +25,7 @@ class PastActivity extends React.Component {
   
   render() {
     return (
-        <div>
+        <div id='past-activity'>
           <h1>Past Activity</h1>
           <PastActivityChart filters={this.state.filters} 
             data={this.props.data} />
